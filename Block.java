@@ -4,7 +4,7 @@ import java.util.Date;
 public class Block {
     public String hash;
     public String previousHash;
-    private String data; // Block data (e.g., transactions)
+    private String data; // Block data
     private long timeStamp;
     private int nonce;
 
@@ -16,13 +16,13 @@ public class Block {
         this.hash = calculateHash();
     }
 
-    // Calculate hash using SHA-256
+    // Calculate hash using SHA256
     public String calculateHash() {
         String input = previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + data;
         return applySha256(input);
     }
 
-    // Mine block with Proof of Work (difficulty = leading zeros required in hash)
+    // Mine block with Proof of Work 
     public void mineBlock(int difficulty) {
         String target = new String(new char[difficulty]).replace('\0', '0');
         while (!hash.substring(0, difficulty).equals(target)) {
@@ -32,7 +32,7 @@ public class Block {
         System.out.println("Block Mined: " + hash);
     }
 
-    // Apply SHA-256 hashing algorithm
+    // Apply SHA256 hashing algorithm
     public static String applySha256(String input) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
